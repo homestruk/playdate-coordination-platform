@@ -1,0 +1,41 @@
+---
+alwaysApply: true
+---
+# Project Structure Guide
+
+Primary app code lives in the Next.js App Router under [src/app](mdc:src/app).
+
+- Pages/routes (server + client components): [src/app](mdc:src/app)
+  - Dashboard: [src/app/dashboard/page.tsx](mdc:src/app/dashboard/page.tsx)
+  - Circles (list/detail/messages):
+    - [src/app/circles/page.tsx](mdc:src/app/circles/page.tsx)
+    - [src/app/circles/[id]/page.tsx](mdc:src/app/circles/[id]/page.tsx)
+    - [src/app/circles/[id]/messages/page.tsx](mdc:src/app/circles/[id]/messages/page.tsx)
+  - Playdates (list/detail/new):
+    - [src/app/playdates/page.tsx](mdc:src/app/playdates/page.tsx)
+    - [src/app/playdates/[id]/page.tsx](mdc:src/app/playdates/[id]/page.tsx)
+    - [src/app/playdates/new/page.tsx](mdc:src/app/playdates/new/page.tsx)
+  - Auth pages: [src/app/login/page.tsx](mdc:src/app/login/page.tsx), [src/app/signup/page.tsx](mdc:src/app/signup/page.tsx)
+
+- Supabase client helpers:
+  - Browser: [src/lib/supabase-client.ts](mdc:src/lib/supabase-client.ts)
+  - Server: [src/lib/supabase-server.ts](mdc:src/lib/supabase-server.ts)
+
+- Realtime hooks: [src/hooks/useRealtime.ts](mdc:src/hooks/useRealtime.ts)
+
+- Admin/API utilities:
+  - Elevate super admins: [src/app/api/admin/elevate/route.ts](mdc:src/app/api/admin/elevate/route.ts)
+  - Seed demo data: [src/app/api/admin/seed-demo/route.ts](mdc:src/app/api/admin/seed-demo/route.ts)
+  - Backfill profiles/memberships: [src/app/api/admin/backfill/route.ts](mdc:src/app/api/admin/backfill/route.ts)
+
+- Database migrations & validation:
+  - Core schema: [supabase/migrations/001_initial_schema.sql](mdc:supabase/migrations/001_initial_schema.sql)
+  - Roles & RLS: [supabase/migrations/002_roles_permissions.sql](mdc:supabase/migrations/002_roles_permissions.sql)
+  - Onboarding trigger: [supabase/migrations/003_onboarding_trigger.sql](mdc:supabase/migrations/003_onboarding_trigger.sql)
+  - Plate validation SQL: [supabase/plate/validate.sql](mdc:supabase/plate/validate.sql)
+
+- Operational scripts:
+  - Plate runner: [scripts/plate.sh](mdc:scripts/plate.sh)
+  - NPM scripts live in [package.json](mdc:package.json) (db:dump, db:push, elevate, seed:demo)
+
+Environment variables are read from [.env.local](mdc:.env.local) in the project root.

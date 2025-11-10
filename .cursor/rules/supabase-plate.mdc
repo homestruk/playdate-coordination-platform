@@ -1,0 +1,32 @@
+---
+description: Supabase Update Plate steps, envs, and commands
+globs: *.ts,*.tsx,*.sql
+---
+# Supabase Update Plate
+
+## Env Requirements
+Read values from [.env.local](mdc:.env.local):
+- NEXT_PUBLIC_SUPABASE_URL
+- NEXT_PUBLIC_SUPABASE_ANON_KEY
+- SUPABASE_SERVICE_ROLE_KEY
+- SUPERADMIN_EMAILS
+
+## CLI/Automation
+- Link project: `supabase link --project-ref <ref>`
+- Backup: `npm run db:dump`
+- Push migrations: `npm run db:push`
+- Backfill: `POST /api/admin/backfill`
+- Elevate super admins: `POST /api/admin/elevate`
+- Seed demo: `POST /api/admin/seed-demo`
+- Plate helper script: [scripts/plate.sh](mdc:scripts/plate.sh)
+
+## Migrations/Validation
+- Migrations: [supabase/migrations](mdc:supabase/migrations)
+- Validate: [supabase/plate/validate.sql](mdc:supabase/plate/validate.sql)
+
+## RLS/Policies Overview
+- Super admin full access policies on core tables
+- Circle admin can delete messages and update/cancel playdates
+
+## Realtime
+- Circles: [src/hooks/useRealtime.ts](mdc:src/hooks/useRealtime.ts) subscribes to `circle_members` for the current user and handles INSERT/UPDATE/DELETE.

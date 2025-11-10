@@ -50,6 +50,11 @@ export function CircleSwitcher({ currentCircleId, onCircleChange }: CircleSwitch
       const response = await fetch('/api/circles/my-circles')
 
       if (!response.ok) {
+        // If not authenticated, just show empty state (no error)
+        if (response.status === 401) {
+          setCircles([])
+          return
+        }
         throw new Error('Failed to fetch circles')
       }
 
@@ -57,7 +62,8 @@ export function CircleSwitcher({ currentCircleId, onCircleChange }: CircleSwitch
       setCircles(data.circles || [])
     } catch (error) {
       console.error('Error fetching circles:', error)
-      toast.error('Failed to load your circles')
+      // Don't show error toast - just fail silently
+      setCircles([])
     } finally {
       setLoading(false)
     }

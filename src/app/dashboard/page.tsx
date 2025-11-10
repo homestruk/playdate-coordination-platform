@@ -116,7 +116,7 @@ export default function Dashboard() {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center gap-4">
               <h1 className="text-xl font-semibold text-gray-900">Playdate Coordinator</h1>
-              <CircleSwitcher />
+              {user && <CircleSwitcher />}
             </div>
             <div className="flex items-center space-x-4">
               <Avatar>

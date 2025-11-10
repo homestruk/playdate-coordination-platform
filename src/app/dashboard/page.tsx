@@ -7,15 +7,17 @@ import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Calendar, Users, MessageSquare, Plus, Settings, LogOut, Bell, MapPin } from 'lucide-react'
+import { Calendar, Users, MessageSquare, Plus, Settings, LogOut, Bell, MapPin, Shield } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { CircleSwitcher } from '@/components/navigation/CircleSwitcher'
 
 interface User {
   id: string
   email: string
   full_name: string | null
   avatar_url: string | null
+  is_super_admin?: boolean
 }
 
 interface Circle {
@@ -112,8 +114,9 @@ export default function Dashboard() {
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
+            <div className="flex items-center gap-4">
               <h1 className="text-xl font-semibold text-gray-900">Playdate Coordinator</h1>
+              <CircleSwitcher />
             </div>
             <div className="flex items-center space-x-4">
               <Avatar>
@@ -278,6 +281,12 @@ export default function Dashboard() {
                     <Settings className="h-5 w-5" />
                     <span>Profile</span>
                   </Link>
+                  {user?.is_super_admin && (
+                    <Link href="/admin" className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-50 bg-blue-50 text-blue-600">
+                      <Shield className="h-5 w-5" />
+                      <span className="font-medium">Admin Dashboard</span>
+                    </Link>
+                  )}
                 </nav>
               </CardContent>
             </Card>
